@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web responsive</title>
+    <link rel="stylesheet" href="css/estilostabla.css">
+</head>
+<body>
+    <h1>Autores de musica clasica</h1>
+    <div id="contenedor">
+        <div class="otro"></div>
+        <table>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>nombre</th>
+                    <th>correo</th>
+                    <th>celular</th>
+                    <th>direccion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                array.forEach(usuario => {
+                %>
+                <tr>
+                    <td><%= usuario.idusuario %></td>
+                    <td><%= usuario.nombre %></td>
+                    <td><%= usuario.correo %></td>
+                    <td><%= usuario.celular %></td>
+                    <td>
+                        <a href="/editarUsuario/<%= usuario.idusuario %>"></a>
+                        <a href="/borrarUsuario/<%= usuario.idusuario %>"></a>
+                    </td>
+                </tr>
+                <%
+                });
+                %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
