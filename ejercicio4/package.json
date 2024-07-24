@@ -2,7 +2,7 @@
   "name": "ejercicio4",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "ejercicio4/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
     "start": "node src/ejercicio4/index.js",
