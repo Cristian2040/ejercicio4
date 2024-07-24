@@ -1,7 +1,7 @@
 const express = require('express');
 const ruta = express.Router();
 const Usuario = require("../clases/UsuarioClase");
-const UsuarioBD = require("../bd/UsuarioBD");  // Asegúrate de importar UsuarioBD
+const UsuarioBD = require("../bd/UsuarioBD");
 
 // Ruta - agregar usuario
 ruta.post("/agregarUsuario", (req, res) => {
