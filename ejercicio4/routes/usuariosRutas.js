@@ -40,15 +40,15 @@ ruta.post("/agregarUsuario", (req,res)=>{
     }
 })
 
-ruta.get("/agregarusuario", (req,res)=>{
+ruta.get("/agregarusuario", (req, res) => {
     res.render("formulario");
-})
+});
 
-ruta,get("/editarUsuario/:id",async(req,res)=>{
+ruta.get("/editarUsuario/:id", async (req, res) => {
     const usuariobd = new UsuarioBD();
     const [[usuario]] = await usuariobd.buscarUsuarioPorId(req.params.id);
     //console.log(usuario);
     res.render("editarUsuario", usuario);
-})
+});
 
 module.exports=ruta;
