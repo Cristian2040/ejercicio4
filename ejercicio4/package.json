@@ -4,8 +4,8 @@
   "description": "",
   "main": "ejercicio4/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-    "start": "node src/ejercicio4/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/ejercicio4/index.js"
   },
   "keywords": [],
   "author": "",
