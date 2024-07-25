@@ -1,46 +1,50 @@
-const conectarBD = require('./ConectarBD');
+const ConectarBD = require("./ConectarBD");
 
 class UsuarioBD {
     constructor() {
-        this.conexion = null;
+        this.conectarBD = new ConectarBD();
     }
 
-    async init() {
-        if (!this.conexion) {
-            this.conexion = await conectarBD.conectarMySql();
+    async crearUsuario(usuario) {
+        await this.conectarBD.conectarMySql();
+        const conexion = this.conectarBD.conexion;
+
+        try {
+            const query = 'INSERT INTO usuarios (nombre, celular, correo) VALUES (?, ?, ?)';
+            await conexion.execute(query, [usuario.nombre, usuario.celular, usuario.correo]);
+            console.log("Usuario creado exitosamente");
+        } catch (error) {
+            console.error("Error al crear usuario: ", error);
+        } finally {
+            await this.conectarBD.cerrarConexion();
         }
     }
 
     async mostrarUsuario() {
-        await this.init();
+        await this.conectarBD.conectarMySql();
+        const conexion = this.conectarBD.conexion;
+
         try {
-            const [rows] = await this.conexion.execute('SELECT * FROM usuarios'); // Ajusta el nombre de la tabla según sea necesario
+            const [rows] = await conexion.query('SELECT * FROM usuarios');
             return rows;
         } catch (error) {
-            console.error("Error al mostrar los usuarios: ", error);
-            throw error;
+            console.error("Error al mostrar usuarios: ", error);
+        } finally {
+            await this.conectarBD.cerrarConexion();
         }
     }
 
     async buscarUsuarioPorId(id) {
-        await this.init();
+        await this.conectarBD.conectarMySql();
+        const conexion = this.conectarBD.conexion;
+
         try {
-            const [rows] = await this.conexion.execute('SELECT * FROM usuarios WHERE id = ?', [id]); // Ajusta el nombre de la tabla y el campo ID según sea necesario
+            const [rows] = await conexion.query('SELECT * FROM usuarios WHERE id = ?', [id]);
             return rows;
         } catch (error) {
-            console.error("Error al buscar el usuario por ID: ", error);
-            throw error;
-        }
-    }
-
-    async crearUsuario(datos) {
-        await this.init();
-        try {
-            const { nombre, celular, correo } = datos;
-            await this.conexion.execute('INSERT INTO usuarios (nombre, celular, correo) VALUES (?, ?, ?)', [nombre, celular, correo]); // Ajusta el nombre de la tabla y los campos según sea necesario
-        } catch (error) {
-            console.error("Error al crear el usuario: ", error);
-            throw error;
+            console.error("Error al buscar usuario por ID: ", error);
+        } finally {
+            await this.conectarBD.cerrarConexion();
         }
     }
 }
