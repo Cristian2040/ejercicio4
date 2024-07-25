@@ -1,4 +1,5 @@
 require('dotenv').config();
+
 class ConectarBD {
     constructor() {
         this.conexion = null;
@@ -8,17 +9,15 @@ class ConectarBD {
     async conectarMySql() {
         try {
             this.conexion = await this.mysql.createConnection({
-                host: process.env.host,
-                user: process.env.user,
-                password: process.env.password,
-                database: process.env.database,
-                port: process.env.port
+                host: process.env.MYSQL_ADDON_HOST,
+                user: process.env.MYSQL_ADDON_USER,
+                password: process.env.MYSQL_ADDON_PASSWORD,
+                database: process.env.MYSQL_ADDON_DB,
+                port: process.env.MYSQL_ADDON_PORT
             });
             console.log("Conexión creada a MySql");
-            return this.conexion;
         } catch (error) {
-            console.error("Error al conectar con MySql " + error);
-            throw error;
+            console.error("Error al conectar con MySql: ", error);
         }
     }
 
@@ -27,9 +26,9 @@ class ConectarBD {
             await this.conexion.end();
             console.log("Desconexión de MySql");
         } catch (error) {
-            console.error("Error al desconectar de MySql " + error);
+            console.error("Error al desconectar de MySql: ", error);
         }
     }
 }
 
-module.exports = new ConectarBD();
+module.exports = ConectarBD;
